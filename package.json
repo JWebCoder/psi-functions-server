@@ -1,15 +1,17 @@
 {
-  "name": "ras-psi",
+  "name": "psi-functions-server",
   "version": "0.0.1",
-  "description": "psi function for raspberry distribution",
-  "main": "dist/index.js",
+  "description": "distributed computing using psi functions",
+  "main": "./bin/psi.js",
   "scripts": {
     "test": "jest",
     "lint": "eslint src/*.js",
     "build": "npm run clean && babel src -d lib",
-    "dev-server": "DEBUG=raspsi:* babel-node ./bin_src/www",
-    "dev-psi": "babel-node src/psi.js",
+    "dev": "babel-node src/psi.js",
     "clean": "rm -rf lib && mkdir lib"
+  },
+  "bin" : {
+    "psi" : "./bin/psi"
   },
   "keywords": [
     "raspberry",
@@ -38,12 +40,7 @@
     "jest": "^23.6.0"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cookie-parser": "^1.4.3",
     "debug": "^4.1.1",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.4",
-    "morgan": "^1.9.1",
-    "shortid": "^2.2.14"
+    "dotenv": "^6.2.0"
   }
 }

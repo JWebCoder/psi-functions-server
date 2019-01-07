@@ -1,6 +1,4 @@
-console.log('dyn')
-
-export default function (body, query) {
+export default function (body, query, next) {
   console.log('TEST FUNCTION CALLED')
-  return 'THIS IS THE RETURN'
+  next('THIS IS THE RETURN')
 }

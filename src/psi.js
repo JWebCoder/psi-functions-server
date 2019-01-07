@@ -21,12 +21,14 @@ const INTERVAL = setInterval(
   TTL
 )
 
-function run (loadedFunction, callbackID) {
-  client.write(JSON.stringify({
-    data: loadedFunction.function(),
-    callbackID,
-    type: 'functionAnswer',
-  }))
+function run (loadedFunction, callbackID, body, query) {
+  loadedFunction.function(body, query, (result) => {
+    client.write(JSON.stringify({
+      data: result,
+      callbackID,
+      type: 'functionAnswer',
+    }))
+  })
 }
 
 let client = net.createConnection({
@@ -51,10 +53,16 @@ client.on('data', function (data) {
   switch (message.type) {
     case 'runFunction':
       const functionName = message.function.name
+      message.data = message.data ? message.data : {}
       if (loadedFunctions[functionName]) {
-        run(loadedFunctions[functionName], message.callbackID || null)
+        run(
+          loadedFunctions[functionName],
+          message.callbackID || null,
+          message.data.body || null,
+          message.data.query || null
+        )
       } else {
-        import('/Users/joaomoura/Repos/personal/ras-psi/functions/' + functionName + '/index.js').then(
+        import('/Users/joaomoura/Repos/personal/ras-psi-functions/functions/' + functionName + '/index.js').then(
           module => {
             loadedFunctions[functionName] = {
               function: module.default,
