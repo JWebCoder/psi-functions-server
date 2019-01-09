@@ -1,6 +1,7 @@
 import 'envLoader'
 import { messageParser, listFunctions } from './utils'
 import net from 'net'
+import path from 'path'
 const loadedFunctions = {}
 let functionNames = []
 const TTL = 60 * 1000
@@ -23,6 +24,7 @@ const INTERVAL = setInterval(
 
 function run (loadedFunction, callbackID, body, query) {
   loadedFunction.function(body, query, (result) => {
+    console.log('next called')
     client.write(JSON.stringify({
       data: result,
       callbackID,
@@ -62,7 +64,7 @@ client.on('data', function (data) {
           message.data.query || null
         )
       } else {
-        import('/Users/joaomoura/Repos/personal/ras-psi-functions/functions/' + functionName + '/index.js').then(
+        import(path.join(__dirname, '../functions', functionName + '/', 'index.js')).then(
           module => {
             loadedFunctions[functionName] = {
               function: module.default,
@@ -70,7 +72,12 @@ client.on('data', function (data) {
             }
             functionNames = Object.keys(loadedFunctions)
             console.log('loaded', functionName)
-            run(loadedFunctions[functionName], message.callbackID || null)
+            run(
+              loadedFunctions[functionName],
+              message.callbackID || null,
+              message.data.body || null,
+              message.data.query || null
+            )
           }
         ).catch(
           err => console.log(err)

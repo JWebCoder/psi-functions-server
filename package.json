@@ -10,8 +10,8 @@
     "dev": "babel-node src/psi.js",
     "clean": "rm -rf lib && mkdir lib"
   },
-  "bin" : {
-    "psi" : "./bin/psi"
+  "bin": {
+    "psi": "./bin/psi"
   },
   "keywords": [
     "raspberry",
