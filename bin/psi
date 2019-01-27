@@ -1,0 +1,16 @@
+"use strict";
+
+require("../lib/envLoader");
+
+var _debug = _interopRequireDefault(require("debug"));
+
+require("../lib/psi");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Module dependencies.
+ */
+(0, _debug.default)('psi:function client');
+
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL2Jpbl9zcmMvcHNpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBSUE7O0FBQ0E7O0FBQ0E7Ozs7QUFOQTs7O0FBUUEsb0JBQU0scUJBQU4iLCJmaWxlIjoicHNpIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBNb2R1bGUgZGVwZW5kZW5jaWVzLlxuICovXG5cbmltcG9ydCAnQHJvb3QvZW52TG9hZGVyJ1xuaW1wb3J0IERlYnVnIGZyb20gJ2RlYnVnJ1xuaW1wb3J0ICdAcm9vdC9wc2knXG5cbkRlYnVnKCdwc2k6ZnVuY3Rpb24gY2xpZW50JylcbiJdfQ==

@@ -1,9 +1,0 @@
-/**
- * Module dependencies.
- */
-
-import 'envLoader'
-import Debug from 'debug'
-import 'psi'
-
-Debug('psi:function client')

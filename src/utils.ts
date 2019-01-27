@@ -1,17 +1,16 @@
 import fs from 'fs'
 import path from 'path'
+import { socketMessage } from '@root/psi'
 
-export function messageParser (data) {
-  let message = ''
+export function messageParser (data: string | Buffer): socketMessage | null {
   try {
-    message = JSON.parse(data.toString())
-  } catch (e) {
-    return
+    return JSON.parse(data.toString())
+  } catch (error) {
+    return null
   }
-  return message || null
 }
 
-export function listFunctions () {
+export function listFunctions (): Array<string> {
   const functionsPath = path.resolve(__dirname, '../functions')
   return fs.readdirSync(functionsPath).filter(function (file) {
     return fs.statSync(functionsPath + '/' + file).isDirectory()

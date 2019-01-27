@@ -6,12 +6,17 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint src/*.js",
-    "build": "npm run clean && babel src -d lib",
-    "dev": "babel-node src/psi.js",
-    "clean": "rm -rf lib && mkdir lib"
+    "dev": "DEBUG=psi:* babel-node --extensions \".js,.ts,.tsx\"  ./bin_src/psi",
+    "clean": "rm -rf lib bin && mkdir lib && mkdir bin",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run clean && npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src -d lib --extensions \".js,.ts,.tsx\" --source-maps inline && babel bin_src/psi.ts -o bin/psi --extensions \".js,.ts,.tsx\" --source-maps inline && node buildSteps/index.js",
+    "start": "NODE_ENV=production node ./bin/psi"
   },
-  "bin" : {
-    "psi" : "./bin/psi"
+  "bin": {
+    "psi": "./bin/psi"
   },
   "keywords": [
     "raspberry",
@@ -26,20 +31,28 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
-    "babel-plugin-module-resolver": "^3.1.1",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.1",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/debug": "0.0.31",
+    "@types/node": "^10.12.18",
     "babel-eslint": "^10.0.1",
     "babel-plugin-dynamic-import-node": "^2.2.0",
+    "babel-plugin-module-resolver": "^3.1.1",
     "eslint": "^5.11.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "replace-in-file": "^3.4.3",
+    "typescript": "^3.2.4"
   },
   "dependencies": {
+    "@types/dotenv": "^6.1.0",
     "debug": "^4.1.1",
     "dotenv": "^6.2.0"
   }

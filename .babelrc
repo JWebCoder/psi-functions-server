@@ -1,12 +1,14 @@
 {
-  "presets": ["@babel/preset-env"],
+  "presets": ["@babel/preset-env", "@babel/typescript"],
   "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
     "dynamic-import-node",
-    [
-      "module-resolver",
-      {
-        "root": ["./src"]
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+          "@root": "./src"
       }
-    ]
+    }]
   ]
 }
